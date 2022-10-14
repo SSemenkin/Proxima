@@ -7,8 +7,8 @@
 
 bool testChipper()
 {
-    QString source = "somelongtext";
-    QString crypted = Settings::instance()->encode(source);
+    QString source = "veryLongStringForTestCase1234567890";
+    QByteArray crypted = Settings::instance()->encode(source);
     return source == Settings::instance()->decode(crypted);
 }
 
@@ -17,6 +17,8 @@ int main(int argc, char *argv[])
     int retCode;
     {
         QApplication a(argc, argv);
+        a.setApplicationName("Proxima");
+        Q_ASSERT(testChipper());
         DatabaseManager databaseManager;
         QTranslator translator;
         const QStringList uiLanguages = QLocale::system().uiLanguages();
