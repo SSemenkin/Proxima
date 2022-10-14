@@ -3,9 +3,12 @@
 
 #include <QObject>
 #include <QHash>
+#include <memory>
 
 class QSqlDatabase;
 class SqlQueryExecutor;
+
+#define get_shared_executor(destination, query) DatabaseManager::instanse()->createExecutor(destination, query)
 
 class DatabaseManager : public QObject
 {
@@ -27,7 +30,7 @@ public:
 
     bool testConnection(DatabaseDestination destination);
 
-    SqlQueryExecutor* createExecutor(DatabaseDestination destination,
+    std::shared_ptr<SqlQueryExecutor> createExecutor(DatabaseDestination destination,
                                      const QString &query) const;
 
 signals:

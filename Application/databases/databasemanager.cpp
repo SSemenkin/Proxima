@@ -38,9 +38,9 @@ bool DatabaseManager::testConnection(DatabaseDestination destination)
     return m_databases[destination].open();
 }
 
-SqlQueryExecutor *DatabaseManager::createExecutor(DatabaseDestination destination, const QString &query) const
+std::shared_ptr<SqlQueryExecutor> DatabaseManager::createExecutor(DatabaseDestination destination, const QString &query) const
 {
-    return new SqlQueryExecutor(database(destination), query);
+    return std::make_shared<SqlQueryExecutor>(database(destination), query);
 }
 
 void DatabaseManager::saveDatabases()
