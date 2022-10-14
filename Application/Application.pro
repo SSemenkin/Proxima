@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui sql network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -9,17 +9,26 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    chiper/qaesencryption.cpp \
+    databases/databasemanager.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    settings.cpp \
+    utils/singleton.cpp
 
 HEADERS += \
-    mainwindow.h
+    chiper/qaesencryption.h \
+    databases/databasemanager.h \
+    mainwindow.h \
+    settings.h \
+    utils/singleton.h
 
 FORMS += \
     mainwindow.ui
 
 TRANSLATIONS += \
     Application_ru_RU.ts
+
 CONFIG += lrelease
 CONFIG += embed_translations
 
@@ -27,3 +36,21 @@ CONFIG += embed_translations
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../3rd_party/MapGraphics/MapGraphics/release/ -lMapGraphics
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../3rd_party/MapGraphics/MapGraphics/debug/ -lMapGraphics
+
+INCLUDEPATH += $$PWD/../3rd_party/MapGraphics/MapGraphics
+DEPENDPATH += $$PWD/../3rd_party/MapGraphics/MapGraphics
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../3rd_party/QSimpleUpdater/release/ -lQSimpleUpdater
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../3rd_party/QSimpleUpdater/debug/ -lQSimpleUpdater
+
+INCLUDEPATH += $$PWD/../3rd_party/QSimpleUpdater
+DEPENDPATH += $$PWD/../3rd_party/QSimpleUpdater
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../3rd_party/SqlQueryExecutor/release/ -lSqlQueryExecutor
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../3rd_party/SqlQueryExecutor/debug/ -lSqlQueryExecutor
+
+INCLUDEPATH += $$PWD/../3rd_party/SqlQueryExecutor
+DEPENDPATH += $$PWD/../3rd_party/SqlQueryExecutor
