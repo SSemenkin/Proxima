@@ -8,17 +8,18 @@
 class QSqlDatabase;
 class SqlQueryExecutor;
 
-#define get_shared_executor(destination, query) DatabaseManager::instanse()->createExecutor(destination, query)
+#define get_shared_executor(destination, query) DatabaseManager::instance()->createExecutor(destination, query)
 
 class DatabaseManager : public QObject
 {
     Q_OBJECT
 public:
-    enum class DatabaseDestination
+    enum class DatabaseDestination : int32_t
     {
         CDR,
         EDR
     };
+
 
     static DatabaseManager *instance();
 
@@ -30,7 +31,7 @@ public:
 
     bool testConnection(DatabaseDestination destination);
 
-    std::shared_ptr<SqlQueryExecutor> createExecutor(DatabaseDestination destination,
+    [[nodiscard]] std::shared_ptr<SqlQueryExecutor> createExecutor(DatabaseDestination destination,
                                      const QString &query) const;
 
 signals:
@@ -41,5 +42,9 @@ private:
     QHash<DatabaseDestination, QSqlDatabase> m_databases;
     static DatabaseManager *s_instance;
 };
+
+inline uint qHash(const DatabaseManager::DatabaseDestination &destination) {
+    return qHash(static_cast<int>(destination));
+}
 
 #endif // DATABASEMANAGER_H

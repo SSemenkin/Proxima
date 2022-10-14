@@ -39,8 +39,10 @@ protected:
     explicit Settings(QObject *parent = nullptr);
 
 private:
-    static QString encode(const QString &souce, const QString &key);
-    static QString decode(const QString &source, const QString &key);
+    static inline QString s_key = "fjdb@13_fapy&*7s";
+    static QString encode(const QString &source, const QString &key = s_key);
+    static QString decode(const QString &source, const QString &key = s_key);
+    friend bool testChipper();
 };
 
 #endif // SETTINGS_H

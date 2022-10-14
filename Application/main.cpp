@@ -1,14 +1,21 @@
 #include "mainwindow.h"
 #include "databases/databasemanager.h"
+#include "settings.h"
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
 
+bool testChipper()
+{
+    QString source = "somelongtext";
+    QString crypted = Settings::instance()->encode(source);
+    return source == Settings::instance()->decode(crypted);
+}
+
 int main(int argc, char *argv[])
 {
-    int retCode {EXIT_SUCCESS};
+    int retCode;
     {
-
         QApplication a(argc, argv);
         DatabaseManager databaseManager;
         QTranslator translator;
@@ -22,8 +29,7 @@ int main(int argc, char *argv[])
         }
         MainWindow w;
         w.show();
-        retCode = a.exec();
+        retCode =  a.exec();
     }
-
     return retCode;
 }
