@@ -3,6 +3,9 @@
 
 #include <QAbstractTableModel>
 #include <QObject>
+#include <QSharedPointer>
+
+#include "sqlqueryexecutor.h"
 
 class DataModel : public QAbstractTableModel
 {
@@ -14,9 +17,16 @@ public:
     int rowCount(const QModelIndex &index) const override;
     QVariant data(const QModelIndex &index, int role) const override;
 
+    void setQueryResult(const SqlQueryExecutor::QueryResult &queryResult);
+    void updateData(const QString &param);
+
+signals:
+    void inProgress();
+    void error(const QString &description);
+
 private:
-    QStringList m_headers;
-    QVector<QVector<QString>> m_data;
+    std::shared_ptr<SqlQueryExecutor> m_executor;
+    SqlQueryExecutor::QueryResult m_queryResult;
 };
 
 #endif // DATAMODEL_H

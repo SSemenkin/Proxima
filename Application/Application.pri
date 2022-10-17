@@ -5,7 +5,10 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     settings.cpp \
-    utils/singleton.cpp
+    utils/singleton.cpp \
+    widgets/settingstabwidget.cpp \
+    widgets/databaseedit.cpp
+
 
 HEADERS += \
     chiper/qaesencryption.h \
@@ -13,10 +16,18 @@ HEADERS += \
     modelviews/datamodel.h \
     mainwindow.h \
     settings.h \
-    utils/singleton.h
+    utils/singleton.h \
+    widgets/settingstabwidget.h \
+    widgets/databaseedit.h
+
+
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    widgets/settingstabwidget.ui \
+    widgets/databaseedit.ui
+
+
 
 TRANSLATIONS += \
     Application_ru_RU.ts

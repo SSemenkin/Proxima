@@ -20,7 +20,6 @@ public:
         EDR
     };
 
-
     static DatabaseManager *instance();
 
     explicit DatabaseManager(QObject *parent = nullptr);
@@ -31,7 +30,7 @@ public:
 
     bool testConnection(DatabaseDestination destination);
 
-    [[nodiscard]] std::shared_ptr<SqlQueryExecutor> createExecutor(DatabaseDestination destination,
+    [[nodiscard]] inline std::shared_ptr<SqlQueryExecutor> createExecutor(DatabaseDestination destination,
                                      const QString &query) const;
 
 signals:

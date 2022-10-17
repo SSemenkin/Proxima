@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+class SettingsTabWidget;
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -16,6 +18,12 @@ public:
     ~MainWindow();
 
 private:
-    Ui::MainWindow *ui;
+    void createConnections();
+    void showSettingsWidget();
+    void onLineEditReturnPressed();
+    void showError(const QString &description);
+private:
+    Ui::MainWindow *m_ui;
+    QScopedPointer<SettingsTabWidget> m_settingsWidget;
 };
 #endif // MAINWINDOW_H

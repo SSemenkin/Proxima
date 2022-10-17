@@ -2,6 +2,7 @@
 #include <QSqlDatabase>
 #include "settings.h"
 #include "sqlqueryexecutor.h"
+#include <QDebug>
 
 DatabaseManager* DatabaseManager::s_instance {nullptr};
 
