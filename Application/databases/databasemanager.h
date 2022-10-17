@@ -14,8 +14,7 @@ class DatabaseManager : public QObject
 {
     Q_OBJECT
 public:
-    enum class DatabaseDestination : int32_t
-    {
+    enum class DatabaseDestination : int32_t {
         CDR,
         EDR
     };

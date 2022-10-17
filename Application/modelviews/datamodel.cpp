@@ -25,6 +25,13 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
                 m_queryResult.data.at(index.row()).at(index.column()) : QVariant{};
 }
 
+QVariant DataModel::headerData(int section, Qt::Orientation orientation, int role) const
+{
+    if (role == Qt::DisplayRole && orientation == Qt::Horizontal) {
+        return m_queryResult.headers.at(section);
+    } else return QAbstractTableModel::headerData(section, orientation, role);
+}
+
 void DataModel::setQueryResult(const SqlQueryExecutor::QueryResult &queryResult)
 {
     if (queryResult != m_queryResult) {

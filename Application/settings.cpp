@@ -3,9 +3,9 @@
 #include <QStandardPaths>
 #include <QApplication>
 
-QVector<DatabaseParams> Settings::getDatabasesParams()
+QHash<DatabaseManager::DatabaseDestination, DatabaseParams> Settings::getDatabasesParams()
 {
-    QVector<DatabaseParams> result;
+    QHash<DatabaseManager::DatabaseDestination, DatabaseParams> result;
 
     int size = beginReadArray("databases");
 
@@ -15,31 +15,31 @@ QVector<DatabaseParams> Settings::getDatabasesParams()
         temporary.databaseName = decode(value("databaseName").toByteArray());
         temporary.hostname = decode(value("hostname").toByteArray());
         temporary.username = decode(value("username").toByteArray());
-        temporary.destination = value("destination").toInt();
         temporary.driver = decode(value("driver").toByteArray());
         temporary.password = decode(value("password").toByteArray());
         temporary.port = value("port").toInt();
-        result.push_back(temporary);
+        result.insert(static_cast<DatabaseManager::DatabaseDestination>(value("destination").toInt()), temporary);
     }
     endArray();
 
     return result;
 }
 
-void Settings::setDatabasesParams(const QVector<DatabaseParams> &databasesParams)
+void Settings::setDatabasesParams(const QHash<DatabaseManager::DatabaseDestination, DatabaseParams> &databasesParams)
 {
     beginWriteArray("databases", databasesParams.size());
 
-    for (int i = 0; i < databasesParams.size(); ++i) {
-        const DatabaseParams &args = databasesParams.at(i);
-        setArrayIndex(i);
+    int count {0};
+    for (auto it = databasesParams.begin(); it != databasesParams.end(); ++it) {
+        const DatabaseParams &args = it.value();
+        setArrayIndex(count++);
         setValue("driver", encode(args.driver));
         setValue("hostname", encode(args.hostname));
         setValue("databaseName", encode(args.databaseName));
         setValue("username", encode(args.username));
         setValue("password", encode(args.password));
         setValue("port", args.port);
-        setValue("destination", args.destination);
+        setValue("destination", static_cast<int>(it.key()));
     }
 
     endArray();

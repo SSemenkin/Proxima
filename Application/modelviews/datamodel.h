@@ -16,6 +16,7 @@ public:
     int columnCount(const QModelIndex &index) const override;
     int rowCount(const QModelIndex &index) const override;
     QVariant data(const QModelIndex &index, int role) const override;
+    QVariant headerData(int section, Qt::Orientation, int role) const override;
 
     void setQueryResult(const SqlQueryExecutor::QueryResult &queryResult);
     void updateData(const QString &param);

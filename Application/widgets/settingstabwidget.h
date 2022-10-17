@@ -3,6 +3,8 @@
 
 #include <QTabWidget>
 
+class Settings;
+
 namespace Ui {
 class SettingsTabWidget;
 }
@@ -16,7 +18,11 @@ public:
     ~SettingsTabWidget();
 
 private:
+    void loadSettingsToUI();
+
+private:
     Ui::SettingsTabWidget *m_ui;
+    Settings &m_settings;
 };
 
 #endif // SETTINGSTABWIDGET_H

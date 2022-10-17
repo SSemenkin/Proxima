@@ -5,6 +5,7 @@
 #include <QObject>
 
 #include "utils/singleton.h"
+#include "databases/databasemanager.h"
 
 struct DatabaseParams
 {
@@ -34,8 +35,8 @@ class Settings : protected QSettings, public Singleton<Settings>
 {
     Q_OBJECT
 public:
-    [[nodiscard]] QVector<DatabaseParams> getDatabasesParams();
-    void setDatabasesParams(const QVector<DatabaseParams> &databasesParams);
+    [[nodiscard]] QHash<DatabaseManager::DatabaseDestination, DatabaseParams> getDatabasesParams();
+    void setDatabasesParams(const QHash<DatabaseManager::DatabaseDestination, DatabaseParams> &databasesParams);
 protected:
     explicit Settings(QObject *parent = nullptr);
 
