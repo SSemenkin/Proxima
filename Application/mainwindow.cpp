@@ -3,6 +3,7 @@
 
 #include "widgets/settingstabwidget.h"
 #include "modelviews/datamodel.h"
+#include "databases/databasemanager.h"
 
 #include <QMessageBox>
 
@@ -12,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     m_ui->setupUi(this);
 
-    DataModel *model = new DataModel(this);
+    DataModel *model = new DataModel(static_cast<int>(DatabaseManager::DatabaseDestination::CDR), this);
     m_ui->tableView->setModel(model);
 
     createConnections();

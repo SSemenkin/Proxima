@@ -11,7 +11,7 @@ class DataModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
-    explicit DataModel(QObject *parent = nullptr);
+    explicit DataModel(int destination, QObject *parent = nullptr);
 
     int columnCount(const QModelIndex &index) const override;
     int rowCount(const QModelIndex &index) const override;
@@ -27,6 +27,7 @@ signals:
 private:
     std::shared_ptr<SqlQueryExecutor> m_executor;
     SqlQueryExecutor::QueryResult m_queryResult;
+    int m_destination;
 };
 
 #endif // DATAMODEL_H
