@@ -7,7 +7,6 @@ DatabaseManager* DatabaseManager::s_instance {nullptr};
 
 DatabaseManager *DatabaseManager::instance()
 {
-    Q_ASSERT(s_instance == nullptr);
     return s_instance;
 }
 

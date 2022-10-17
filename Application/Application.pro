@@ -1,5 +1,5 @@
 QT       += core gui sql network
-
+include(Application.pri)
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
@@ -7,27 +7,6 @@ CONFIG += c++17
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
-
-SOURCES += \
-    chiper/qaesencryption.cpp \
-    databases/databasemanager.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    settings.cpp \
-    utils/singleton.cpp
-
-HEADERS += \
-    chiper/qaesencryption.h \
-    databases/databasemanager.h \
-    mainwindow.h \
-    settings.h \
-    utils/singleton.h
-
-FORMS += \
-    mainwindow.ui
-
-TRANSLATIONS += \
-    Application_ru_RU.ts
 
 CONFIG += lrelease
 CONFIG += embed_translations

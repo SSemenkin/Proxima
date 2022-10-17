@@ -20,6 +20,7 @@ struct DatabaseParams
     {
 
     }
+    DatabaseParams() = default;
     QString driver;
     QString hostname;
     QString username;
@@ -33,7 +34,7 @@ class Settings : protected QSettings, public Singleton<Settings>
 {
     Q_OBJECT
 public:
-    [[nodiscard]] QVector<DatabaseParams> getDatabasesParams() const;
+    [[nodiscard]] QVector<DatabaseParams> getDatabasesParams();
     void setDatabasesParams(const QVector<DatabaseParams> &databasesParams);
 protected:
     explicit Settings(QObject *parent = nullptr);

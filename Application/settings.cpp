@@ -3,9 +3,26 @@
 #include <QStandardPaths>
 #include <QApplication>
 
-QVector<DatabaseParams> Settings::getDatabasesParams() const
+QVector<DatabaseParams> Settings::getDatabasesParams()
 {
     QVector<DatabaseParams> result;
+
+    int size = beginReadArray("databases");
+
+    DatabaseParams temporary;
+    for (int i = 0; i < size; ++i) {
+        setArrayIndex(i);
+        temporary.databaseName = decode(value("databaseName").toByteArray());
+        temporary.hostname = decode(value("hostname").toByteArray());
+        temporary.username = decode(value("username").toByteArray());
+        temporary.destination = value("destination").toInt();
+        temporary.driver = decode(value("driver").toByteArray());
+        temporary.password = decode(value("password").toByteArray());
+        temporary.port = value("port").toInt();
+        result.push_back(temporary);
+    }
+    endArray();
+
     return result;
 }
 
@@ -18,6 +35,7 @@ void Settings::setDatabasesParams(const QVector<DatabaseParams> &databasesParams
         setArrayIndex(i);
         setValue("driver", encode(args.driver));
         setValue("hostname", encode(args.hostname));
+        setValue("databaseName", encode(args.databaseName));
         setValue("username", encode(args.username));
         setValue("password", encode(args.password));
         setValue("port", args.port);
