@@ -24,7 +24,6 @@ public:
 signals:
     void inProgress();
     void error(const QString &description);
-
 private:
     std::shared_ptr<SqlQueryExecutor> m_executor;
     SqlQueryExecutor::QueryResult m_queryResult;

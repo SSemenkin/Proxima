@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QHash>
 #include <memory>
+#include <QDebug>
 
 class QSqlDatabase;
 class SqlQueryExecutor;
@@ -19,7 +20,7 @@ public:
         EDR
     };
 
-    static DatabaseManager *instance();
+    static DatabaseManager *instance(); // valid until main loop is running, othewise instance == nullptr
 
     explicit DatabaseManager(QObject *parent = nullptr);
     ~DatabaseManager();
@@ -27,7 +28,7 @@ public:
     [[nodiscard]] QSqlDatabase database(DatabaseDestination destination) const;
     void setDatabase(DatabaseDestination destination, QSqlDatabase database);
 
-    bool testConnection(DatabaseDestination destination);
+    [[nodiscard]] bool testConnection(DatabaseDestination destination) const;
 
     [[nodiscard]] std::shared_ptr<SqlQueryExecutor> createExecutor(DatabaseDestination destination,
                                      const QString &query) const;
@@ -43,6 +44,10 @@ private:
 
 inline uint qHash(const DatabaseManager::DatabaseDestination &destination) {
     return qHash(static_cast<int>(destination));
+}
+
+inline QDebug operator << (QDebug debug, DatabaseManager::DatabaseDestination destination) {
+    return debug << static_cast<int>(destination);
 }
 
 #endif // DATABASEMANAGER_H

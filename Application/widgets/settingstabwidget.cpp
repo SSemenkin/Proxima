@@ -26,10 +26,4 @@ void SettingsTabWidget::loadSettingsToUI()
                                                        this));
     m_ui->horizontalLayout_2->addWidget(new DatabaseEdit(static_cast<int>(DatabaseManager::DatabaseDestination::EDR),
                                                        this));
-
-    QVector<DatabaseParams> params = m_settings.getDatabasesParams();
-
-    for (const DatabaseParams &args : params) {
-
-    }
 }

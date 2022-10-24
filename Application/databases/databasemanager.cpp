@@ -34,9 +34,10 @@ void DatabaseManager::setDatabase(DatabaseDestination destination, QSqlDatabase 
     m_databases[destination] = database;
 }
 
-bool DatabaseManager::testConnection(DatabaseDestination destination)
+bool DatabaseManager::testConnection(DatabaseDestination destination) const
 {
-    return m_databases[destination].open();
+    QSqlDatabase database = m_databases.value(destination);
+    return database.open();
 }
 
 std::shared_ptr<SqlQueryExecutor> DatabaseManager::createExecutor(DatabaseDestination destination, const QString &query) const

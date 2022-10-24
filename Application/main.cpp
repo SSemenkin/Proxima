@@ -4,6 +4,14 @@
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
+#include <QSqlDatabase>
+
+void clearSqlConnections()
+{
+    for (const QString &connectionName : QSqlDatabase::connectionNames()) {
+        QSqlDatabase::removeDatabase(connectionName);
+    }
+}
 
 bool testChipper()
 {
@@ -33,5 +41,6 @@ int main(int argc, char *argv[])
         w.show();
         retCode =  a.exec();
     }
+    clearSqlConnections();
     return retCode;
 }
