@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "databases/databasemanager.h"
 #include "settings.h"
+#include "sqlqueryexecutor.h"
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
@@ -8,7 +9,8 @@
 
 void clearSqlConnections()
 {
-    for (const QString &connectionName : QSqlDatabase::connectionNames()) {
+    QStringList connectionNames = QSqlDatabase::connectionNames();
+    for (const QString &connectionName : connectionNames) {
         QSqlDatabase::removeDatabase(connectionName);
     }
 }
